@@ -1,0 +1,89 @@
+---
+title: "Problem Set 1"
+author: "Chase Bookin"
+date: "June 24, 2020"
+output:
+  pdf_document: default
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(tidycensus)
+library(ggthemes)
+library(ggplot2)
+library(janitor)
+library(dplyr)
+library(gt)
+library(readxl)
+library(sf)
+library(scales)
+library(magrittr)
+library(haven)
+library(infer)
+library(Lahman)
+library(xml2)
+library(rvest)
+library(devtools)
+library(broom)
+library(retrosheet)
+```
+
+<h1> **Question 1 ** </h1> 
+```{r}
+
+sample_1 <- c(3, 4, 5, 6, 7)
+sample_2 <- c(67, 68, 69, 70, 71)
+
+mean_samp1 <- sum(sample_1) / length(sample_1)
+
+sd_samp1 <- round(sqrt(((3-mean_samp1)^2 + (4-mean_samp1)^2 + (5-mean_samp1)^2
+                  + (6-mean_samp1)^2 + (7-mean_samp1)^2) / (length(sample_1) - 1)), 3)
+
+mean_samp2 <- sum(sample_2) / length(sample_2)
+
+sd_samp2 <- round(sqrt(((67-mean_samp2)^2 + (68-mean_samp2)^2 + (69-mean_samp2)^2
+                  + (70-mean_samp2)^2 + (71-mean_samp2)^2) / (length(sample_2) - 1)), 3)
+```
+
+**Sample 1: **  
+  - Mean: `r mean_samp1`  
+  - Standard Deviation: `r sd_samp1`  
+
+**Sample 2: **   
+  -Mean: `r mean_samp2`  
+  -Standard Deviation: `r sd_samp2`  
+  
+The standard deviations of sample 1 and sample 2 are equal. This shows that
+although the samples have different means, they are spread around their center
+with the same variance.
+
+
+<h1> **Question 2**  </h1>
+
+```{r}
+z_tokyo <- (380000 - 420000) / 20000
+
+z_germany <- (3100 - 3200) / 57
+
+```
+
+
+Relative to their peers, the worker in Germany is earning more than the worker
+in Tokyo. This is demonstrated by the z-score of each worker's salary. The
+z-score of the workers' salaries tells the relative position of their salary to
+their peers using the mean and standard deviation. In this case, the German
+worker's z-score of roughly -1.75 is greater than the Tokyo worker's z-score of
+-2, demonstrating that the German worker is earning comparatively more than the
+Tokyo worker.
+
+
+
+
+
+
+
+
+
