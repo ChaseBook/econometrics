@@ -80,7 +80,34 @@ worker's z-score of roughly -1.75 is greater than the Tokyo worker's z-score of
 Tokyo worker.
 
 
+<h1> **Question 3**  
 
+**a) **  
+```{r}
+z_prob_keane <- 1-.192
+z_keane <- 0.87
+sd_keane <- (25000 - 21000) / 0.87
+```
+
+Standard Deviation: `r round(sd_keane, 2)`
+
+**b) **
+```{r}
+z_42nd <- -0.2
+percentile_42 <- (sd_keane * z_42nd) + 21000
+```
+
+42nd Percentile: 20080.46
+
+**c) **
+```{r}
+# -1.55 <= z <= 1.55
+percentile_94 <- (sd_keane * 1.55) + 21000
+percentile_06 <- (sd_keane * -1.55) + 21000
+
+```
+
+Middle 88% values: (`r format(round(percentile_06, 2), scientific=FALSE)`, `r format(round(percentile_94, 2), scientific=FALSE)`)
 
 
 
