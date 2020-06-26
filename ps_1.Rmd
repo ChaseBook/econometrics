@@ -57,8 +57,7 @@ sd_samp2 <- round(sqrt(((67-mean_samp2)^2 + (68-mean_samp2)^2 + (69-mean_samp2)^
   -Standard Deviation: `r sd_samp2`  
   
 The standard deviations of sample 1 and sample 2 are equal. This shows that
-although the samples have different means, they are spread around their center
-with the same variance.
+although the samples have different means, they are similarly dispersed around their center.
 
 
 <h1> **Question 2**  </h1>
@@ -80,7 +79,7 @@ worker's z-score of roughly -1.75 is greater than the Tokyo worker's z-score of
 Tokyo worker.
 
 
-<h1> **Question 3**  
+<h1> **Question 3**  </h1>
 
 **a) **  
 ```{r}
@@ -107,9 +106,99 @@ percentile_06 <- (sd_keane * -1.55) + 21000
 
 ```
 
-Middle 88% values: (`r format(round(percentile_06, 2), scientific=FALSE)`, `r format(round(percentile_94, 2), scientific=FALSE)`)
+Middle 88% values: (`r format(round(percentile_06, 2), scientific=FALSE)`, `r format(round(percentile_94, 2), scientific=FALSE)`)  
+  
+<h1> **Question 4**  </h1>
+**a) **  
+```{r}
+# finding P(1502 <= sample mean <= 1,748)
+pop_mean <- 1573
+pop_var <- 952021
+n <- 85
+std_error_a <- sqrt(pop_var / n)
+
+z_1502 <- (1502 - 1573) / std_error_a
+z_1748 <- (1748 - 1537) / std_error_a
+
+CDF_z_1502 <- 0.25143
+CDF_z_1748 <- 0.97670
+
+prob_btwn <- CDF_z_1748 - CDF_z_1502
+```
+
+The probability the sample average lies between 1502 and 1748 is `r round(prob_btwn, 3)`  
+
+**b) **  
+```{r}
+# 92% middle pack boundaries; sample size of 63
+
+std_error_b <- sqrt(pop_var / 63)
+z_0.96 <- 1.75
+z_0.04 <- -1.75
+
+upper_bound <- round((z_0.96 * std_error_b) + pop_mean, 3)
+lower_bound <- round((z_0.04 * std_error_b) + pop_mean, 3)
+
+```
+
+The boundaries of the middle 92% of the sample average estimator with n = 63 are (`r lower_bound`, `r upper_bound`).  
+  
+<h1> **Question 5**  </h1>
+**a) **  
+```{r}
+accidents <- c(12,  7,  17,  11,  9,  8,  19,  22,  12,  17,  15,  9,  12,  21, 15)
+n <- length(accidents)
+sample_avg <- sum(accidents) / n
+```
+
+The sample average is `r sample_avg`.  
+
+**b) **  
+```{r}
+SD_accidents <- tibble(accidents = accidents) %>%
+  summarize(SD_accidents = sqrt(sum((accidents - sample_avg)^2) / (n - 1))) %>% 
+  pull(SD_accidents)
+
+SE_accidents <- SD_accidents / sqrt(n)
+
+```
+
+The standard error of the sample average is `r round(SE_accidents, 2)`.
+
+**c) **  
+```{r}
+null <- 11.2
+t_critical <- 2.05
+t_sample <- (sample_avg - null) / SE_accidents
+
+# p_value to right of null hypothesisis 2*(1-CDF(t-stat))
+p_value <- 2 * (1 - 0.98124)
+ 
+```
+
+Using the t-stat method to test the friend's claim, we have enough evidence to
+reject the null hypothesis that the population average for daily car crashes is
+11.2. The t-stat of the sample mean is `r round(t_sample, 3)`, which is greater than the
+t-critical value of 2.05 using a significance level of 4%.  
+  
+Using the p_value method, we see the p-value is approximately `r round(p_value, 3)`, which is less than the alpha value of 0.04. Therefore, we reject the null hypothesis.
 
 
+
+
+
+```{r, include=FALSE}
+mlb <- read_xlsx("acuna_soto.xlsx")
+
+mlb %>% 
+  mutate(new_SLG = (1*(H-Double - Triple - HR - CS - SB) + 2*(Double + SB) + 3*(Triple) + 4*(HR)) / AB,
+         new_OBP = (H + BB + IBB + HBP - CS) / PA,
+         new_OPS = new_SLG + new_OBP) %>% 
+  select(Year, Name, Age, SLG, OBP, OPS, new_SLG, new_OBP, new_OPS)
+
+(9+76+175+1) / 715
+(153+108+3) / 659
+```
 
 
 
