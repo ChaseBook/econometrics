@@ -1,7 +1,7 @@
 ---
-title: "Problem Set 1"
-author: "Chase Bookin"
-date: "June 24, 2020"
+title: "Econometrics Problem Set 1"
+author: "Chase Bookin & Cole Price"
+date: "June 28, 2020"
 output:
   pdf_document: default
   word_document: default
@@ -118,10 +118,10 @@ n <- 85
 std_error_a <- sqrt(pop_var / n)
 
 z_1502 <- (1502 - 1573) / std_error_a
-z_1748 <- (1748 - 1537) / std_error_a
+z_1748 <- (1748 - 1573) / std_error_a
 
 CDF_z_1502 <- 0.25143
-CDF_z_1748 <- 0.97670
+CDF_z_1748 <- 0.9505
 
 prob_btwn <- CDF_z_1748 - CDF_z_1502
 ```
@@ -151,7 +151,7 @@ n <- length(accidents)
 sample_avg <- sum(accidents) / n
 ```
 
-The sample average is `r sample_avg`.  
+The sample average is `r round(sample_avg, 2)`.  
 
 **b) **  
 ```{r}
